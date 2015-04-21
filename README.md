@@ -5,7 +5,7 @@ We're contributing data from our Nineteenth-century Sheet Music Collection ([pud
 Steps to create an *OAI static repository*...
 * Make a collection file using ./xq/make-collection.xq
 * Transform using ./xsl/pul2oai.xsl
-* Post file to server
+* Post file to server [TBA]
 * Register file: http://oaigateway.library.ucla.edu/submit.html
 
 Details on participation: http://digital2.library.ucla.edu/sheetmusic/aboutProject.html#Participation
