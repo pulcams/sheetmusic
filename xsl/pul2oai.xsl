@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:mods="http://www.loc.gov/mods/v3"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
     exclude-result-prefixes="xs xd" version="3.0">
     <xsl:strip-space elements="*"/>
     <xsl:output encoding="UTF-8" omit-xml-declaration="no" indent="yes" method="xml"/>
@@ -17,11 +18,11 @@
         <Repository xmlns="http://www.openarchives.org/OAI/2.0/static-repository"
             xmlns:oai="http://www.openarchives.org/OAI/2.0/"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
             xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/static-repository     http://www.openarchives.org/OAI/2.0/static-repository.xsd">
             <Identify>
                 <oai:repositoryName>Nineteenth-century sheet music collection</oai:repositoryName>
-                <!-- change the baseURL -->
-                <oai:baseURL>http://oaigateway.library.ucla.edu/gatewaynet/oai.aspx/pmgreen.mycpanel.princeton.edu/smc/pul.xml</oai:baseURL>
+                <oai:baseURL>http://oaigateway.library.ucla.edu/gatewaynet/oai.aspx/library.princeton.edu/departments/tsd/sheetmusic/pudl0020.xml</oai:baseURL>
                 <oai:protocolVersion>2.0</oai:protocolVersion>
                 <oai:adminEmail>pmgreen@princeton.edu</oai:adminEmail>
                 <oai:earliestDatestamp>
@@ -70,10 +71,14 @@
                 </oai:datestamp>
             </oai:header>
             <oai:metadata>
-                <xsl:copy copy-namespaces="no">
+                <xsl:copy copy-namespaces="yes">
                     <xsl:apply-templates select="@*,node()"/>
                 </xsl:copy>
             </oai:metadata>
         </oai:record>
     </xsl:template>
+    <xsl:template match="@xlink:type" />
+    <!-- scm validation is oddly rejecting records with mods:holdingSimple, apparently validating against < 3.3. Taking it out for now. -->
+    <xsl:template match="mods:holdingSimple" />
+
 </xsl:stylesheet>
