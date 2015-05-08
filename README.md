@@ -8,4 +8,4 @@ Steps to create an *OAI static repository*...
 * Post file to server [TBA]
 * Register file: http://oaigateway.library.ucla.edu/submit.html
 
-Details on participation: http://digital2.library.ucla.edu/sheetmusic/aboutProject.html#Participation
+Details on participation: [http://digital2.library.ucla.edu/sheetmusic/aboutProject.html#Participation](http://digital2.library.ucla.edu/sheetmusic/aboutProject.html#Participation)
