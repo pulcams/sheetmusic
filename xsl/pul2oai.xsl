@@ -48,12 +48,16 @@
         </Repository>
     </xsl:template>
     <xsl:template match="element()">
-        <xsl:copy copy-namespaces="no">
-            <xsl:apply-templates select="@*,node()"/>
-        </xsl:copy>
+        <xsl:element name="mods:{name()}" namespace="http://www.loc.gov/mods/v3">
+        <!--<xsl:copy copy-namespaces="yes">-->
+            <!-- ucla requests mods: prefix -->
+            <xsl:copy-of select="namespace::*"/>
+            <xsl:apply-templates select="node()|@*"/>
+        <!--</xsl:copy>-->
+        </xsl:element>
     </xsl:template>
     <xsl:template match="attribute()|text()|comment()|processing-instruction()">
-        <xsl:copy copy-namespaces="no"/>
+        <xsl:copy copy-namespaces="yes"/>
     </xsl:template>
     <xsl:template match="processing-instruction()"/>
     <xsl:template match="mods:mods">
