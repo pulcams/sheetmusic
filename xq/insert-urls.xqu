@@ -1,0 +1,33 @@
+xquery version "1.0";
+
+(: After running pul2oai.xsl, insert mods:url into each MODS record in the resulting file (i.e. the static repo). :)
+
+declare namespace mods="http://www.loc.gov/mods/v3";
+declare namespace mets="http://www.loc.gov/METS/";
+declare namespace oai="http://www.openarchives.org/OAI/2.0/";
+
+declare variable $METS as document-node()* := collection("../collections/mets_batch01.xml");
+declare variable $OAI as document-node()* := doc("../oai/pudl0020.xml");
+
+for $this-mets in $METS//mets:mets
+let $objid := $this-mets/@OBJID/string()
+let $url := <mods:url usage="primary display" access="object in context">http://arks.princeton.edu/ark:/88435/{$objid}</mods:url>
+let $mets-name := base-uri($this-mets)
+let $mets-file-tokens := tokenize($mets-name,'/')
+let $mets-file-name := replace(concat($mets-file-tokens[last()-1],'/',$mets-file-tokens[last()]),'.mets','')
+
+for $this-mods in $OAI//mods:mods
+let $loc as element()? := $this-mods/mods:location
+let $mods-name := $this-mods//mods:recordIdentifier/text()
+let $mods-file-tokens := tokenize($mods-name,'/')
+let $mods-file-name := replace(concat($mods-file-tokens[last()-1],'/',$mods-file-tokens[last()]),'.mods','')
+
+let $match := $mods-file-name eq $mets-file-name
+
+
+order by $mets-file-name
+
+return
+if ($match) then
+    insert node $url as last into $loc
+else()
